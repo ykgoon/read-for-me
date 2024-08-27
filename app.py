@@ -12,7 +12,10 @@ def index():
 
 class ArticleSpider(scrapy.Spider):
     name = "article"
-    start_urls = [request.args.get('url')]
+
+    def __init__(self, url=None, *args, **kwargs):
+        super(ArticleSpider, self).__init__(*args, **kwargs)
+        self.start_urls = [url]
 
     def parse(self, response):
         content = response.xpath('//body').get()
@@ -26,7 +29,7 @@ def summarize():
     process = CrawlerProcess(settings={
         "LOG_LEVEL": "ERROR",
     })
-    process.crawl(ArticleSpider)
+    process.crawl(ArticleSpider, url=url)
     process.start()
     return jsonify({'summary': 'Summary of the article'})
 

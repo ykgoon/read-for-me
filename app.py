@@ -1,10 +1,14 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import google.generativeai as palm
 from playwright.sync_api import sync_playwright
 
 app = Flask(__name__)
 CORS(app)
+
+@app.route('/')
+def index():
+    return send_file('index.html')
 
 @app.route('/summarize', methods=['GET'])
 def summarize():

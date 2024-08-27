@@ -5,6 +5,10 @@ Save time reading long form articles.
 ## Installation
 
 1. Run `docker-compose up --build` to build and start the application.
+2. To enter the shell of the running `web` service for development purposes, use:
+   ```bash
+   docker-compose exec web bash
+   ```
 
 ## Usage
 

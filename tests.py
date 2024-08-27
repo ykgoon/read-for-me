@@ -1,8 +1,10 @@
 import unittest
-from scrapy.http import HtmlResponse
 from app import ArticleSpider
+from scrapy.crawler import CrawlerProcess
+from scrapy.http import HtmlResponse
 
-class TestArticleSpider(unittest.TestCase):
+
+class TestCrawler(unittest.TestCase):
     def test_parse(self):
         url = 'https://ykgoon.com'
         body = '<html><body><p>Test content</p></body></html>'
@@ -13,6 +15,14 @@ class TestArticleSpider(unittest.TestCase):
             result,
             {'content': '<body><p>Test content</p></body>'}
         )
+
+    def test_crawl(self):
+        url = 'https://ykgoon.com'
+        process = CrawlerProcess(settings={
+            "LOG_LEVEL": "ERROR",
+        })
+        process.crawl(ArticleSpider, url=url)
+        process.start()
 
 if __name__ == '__main__':
     unittest.main()

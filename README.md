@@ -4,17 +4,26 @@ Save time reading long form articles.
 
 ## Installation
 
-`docker compose up --build`
+```bash
+docker compose up --build
+```
 
 ## Development
 
 To enter the shell of the running `web` service for development purposes, use:
 
 ```bash
-docker compose run -it --rm web bash
+docker compose run -it --rm -P web bash
+python app.py
 ```
 
-## Usage
+### Running tests
+
+```bash
+python -m unittest tests.py
+```
+
+## Deploy
 
 1. `docker compose up`
 2. Open your browser and navigate to `http://localhost:5000`.

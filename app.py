@@ -19,7 +19,6 @@ class ArticleSpider(scrapy.Spider):
 
     def parse(self, response):
         content = response.xpath('//body').get()
-        print('CuJWBwTI:', content)
         # TODO: Extract article body, clean it, and summarize using Google Gemini
         return {'content': content}
 

@@ -1,7 +1,7 @@
+import scrapy
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
-import google.generativeai as palm
-from playwright.sync_api import sync_playwright
+from scrapy.crawler import CrawlerProcess
 
 app = Flask(__name__)
 CORS(app)
@@ -9,9 +9,6 @@ CORS(app)
 @app.route('/')
 def index():
     return send_file('index.html')
-
-import scrapy
-from scrapy.crawler import CrawlerProcess
 
 class ArticleSpider(scrapy.Spider):
     name = "article"

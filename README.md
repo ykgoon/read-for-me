@@ -8,6 +8,6 @@ Save time reading long form articles.
 
 ## Usage
 
-1. `docker-compose up`
+1. `docker compose up`
 2. Open your browser and navigate to `http://localhost:5000`.
 3. Enter a URL in the input box and click "Summarize".

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Article Summarizer</title>
+</head>
+<body>
+    <h1>Article Summarizer</h1>
+    <input type="text" id="url" placeholder="Enter URL">
+    <button onclick="summarizeArticle()">Summarize</button>
+    <div id="summary"></div>
+
+    <script>
+        async function summarizeArticle() {
+            const url = document.getElementById('url').value;
+            const response = await fetch(`http://localhost:5000/summarize?url=${url}`);
+            const data = await response.json();
+            document.getElementById('summary').innerHTML = data.summary;
+        }
+    </script>
+</body>
+</html>

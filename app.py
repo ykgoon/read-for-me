@@ -18,9 +18,10 @@ def summarize():
         page = browser.new_page()
         page.goto(url)
         content = page.content()
+        print('CuJWBwTI:', content)
         # TODO: Extract article body, clean it, and summarize using Google Gemini
         browser.close()
     return jsonify({'summary': 'Summary of the article'})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)

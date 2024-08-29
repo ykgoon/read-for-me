@@ -1,7 +1,8 @@
 import scrapy
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
-from scrapy.crawler import CrawlerProcess
+from scrapy.crawler import CrawlerRunner
+from twisted.internet import reactor, defer
 
 app = Flask(__name__)
 CORS(app)
@@ -25,11 +26,18 @@ class ArticleSpider(scrapy.Spider):
 @app.route('/summarize', methods=['GET'])
 def summarize():
     url = request.args.get('url')
-    process = CrawlerProcess(settings={
+    runner = CrawlerRunner(settings={
         "LOG_LEVEL": "ERROR",
     })
-    process.crawl(ArticleSpider, url=url)
-    process.start()
+
+    @defer.inlineCallbacks
+    def crawl():
+        crawler = yield runner.crawl(ArticleSpider, url=url)
+        reactor.stop()
+        defer.returnValue(crawler)
+
+    reactor.callWhenRunning(crawl)
+    reactor.run()
     return jsonify({'summary': 'Summary of the article'})
 
 if __name__ == '__main__':

@@ -23,6 +23,3 @@ class TestCrawler(unittest.TestCase):
         })
         process.crawl(ArticleSpider, url=url)
         process.start()
-
-if __name__ == '__main__':
-    unittest.main()

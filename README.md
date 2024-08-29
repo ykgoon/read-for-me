@@ -20,7 +20,7 @@ python app.py
 ### Running tests
 
 ```bash
-python -m unittest tests.py
+python -m unittest
 ```
 
 ## Deploy

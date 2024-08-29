@@ -31,7 +31,9 @@ async def summarize():
         ''')
         await browser.close()
     # Use Google Gemini to summarize content
-    summarized_content = genai.summarize(content)
+    prompt = f"Summarize the following content: {content}"
+    response = genai.generate_text(prompt)
+    summarized_content = response['text']
     return jsonify({'summary': summarized_content})
 
 if __name__ == '__main__':

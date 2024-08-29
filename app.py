@@ -18,7 +18,7 @@ async def summarize():
         browser = await p.firefox.launch()
         page = await browser.new_page()
         await page.goto(url)
-        content = page.evaluate('''
+        content = await page.evaluate('''
             const article = new (window.ownerDocument.defaultView || window).Readability(
                 document.cloneNode(true)
             ).parse();

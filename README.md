@@ -16,9 +16,3 @@ playwright install firefox
 ```bash
 python app.py
 ```
-
-## Unit tests
-
-```bash
-python -m unittest
-```

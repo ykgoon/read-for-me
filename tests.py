@@ -1,7 +1,8 @@
 import unittest
 from app import ArticleSpider
-from scrapy.crawler import CrawlerProcess
+from scrapy.crawler import CrawlerRunner
 from scrapy.http import HtmlResponse
+from twisted.internet import reactor, defer
 
 
 class TestCrawler(unittest.TestCase):
@@ -18,8 +19,15 @@ class TestCrawler(unittest.TestCase):
 
     def test_crawl(self):
         url = 'https://ykgoon.com'
-        process = CrawlerProcess(settings={
+        runner = CrawlerRunner(settings={
             "LOG_LEVEL": "ERROR",
         })
-        process.crawl(ArticleSpider, url=url)
-        process.start()
+
+        @defer.inlineCallbacks
+        def crawl():
+            crawler = yield runner.crawl(ArticleSpider, url=url)
+            reactor.stop()
+            defer.returnValue(crawler)
+
+        reactor.callWhenRunning(crawl)
+        reactor.run()

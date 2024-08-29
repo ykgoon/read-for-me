@@ -18,15 +18,16 @@ async def summarize():
         browser = await p.firefox.launch()
         page = await browser.new_page()
         await page.goto(url)
-        content = page.evaluate('''
+        content = await page.evaluate('''
+        async () => {
             const readabilityScript = document.createElement('script');
-            readabilityScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/readability/0.1.20/readability.min.js';
+            readabilityScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/readability/0.5.0/Readability.min.js';
             document.head.appendChild(readabilityScript);
             await new Promise(resolve => readabilityScript.onload = resolve);
             const article = new Readability(document).parse();
             return article.textContent;
+        }
         ''')
-        print(type(content))
         await browser.close()
     return jsonify({'summary': content})
 

@@ -19,10 +19,12 @@ async def summarize():
         page = await browser.new_page()
         await page.goto(url)
         content = await page.evaluate('''
-            const article = new (window.ownerDocument.defaultView || window).Readability(
-                document.cloneNode(true)
-            ).parse();
-            return article.content;
+            const readabilityScript = document.createElement('script');
+            readabilityScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/readability/0.1.20/readability.min.js';
+            document.head.appendChild(readabilityScript);
+            await new Promise(resolve => readabilityScript.onload = resolve);
+            const article = new Readability(document).parse();
+            return article.textContent;
         ''')
         await browser.close()
     return jsonify({'summary': content})

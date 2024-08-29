@@ -18,7 +18,12 @@ async def summarize():
         browser = await p.firefox.launch()
         page = await browser.new_page()
         await page.goto(url)
-        content = await page.content()
+        content = page.evaluate('''
+            const article = new (window.ownerDocument.defaultView || window).Readability(
+                document.cloneNode(true)
+            ).parse();
+            return article.content;
+        ''')
         await browser.close()
     return jsonify({'summary': content})
 

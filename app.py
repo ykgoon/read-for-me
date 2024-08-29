@@ -1,8 +1,10 @@
-from flask import Flask, request, jsonify, send_file
+import asyncio
+import os
+
+import google.generativeai as genai
+from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
 from playwright.async_api import async_playwright
-import asyncio
-import google.generativeai as genai
 
 app = Flask(__name__)
 CORS(app)
@@ -30,11 +32,17 @@ async def summarize():
         }
         ''')
         await browser.close()
-    # Use Google Gemini to summarize content
-    prompt = f"Summarize the following content: {content}"
-    response = genai.generate_text(prompt)
-    summarized_content = response['text']
-    return jsonify({'summary': summarized_content})
+
+    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+    with open("system_prompt.md") as f:
+        system_instruction = f.read()
+    model = genai.GenerativeModel(
+        'gemini-1.5-flash',
+        system_instruction=system_instruction,
+    )
+    response = model.generate_content(content)
+
+    return jsonify({'summary': response.text})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

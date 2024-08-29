@@ -15,7 +15,7 @@ def index():
 async def summarize():
     url = request.args.get('url')
     async with async_playwright() as p:
-        browser = await p.chromium.launch()
+        browser = await p.firefox.launch()
         page = await browser.new_page()
         await page.goto(url)
         content = await page.content()

@@ -18,7 +18,7 @@ async def summarize():
         browser = await p.firefox.launch()
         page = await browser.new_page()
         await page.goto(url)
-        content = await page.evaluate('''
+        content = page.evaluate('''
             const readabilityScript = document.createElement('script');
             readabilityScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/readability/0.1.20/readability.min.js';
             document.head.appendChild(readabilityScript);

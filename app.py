@@ -26,6 +26,7 @@ async def summarize():
             const article = new Readability(document).parse();
             return article.textContent;
         ''')
+        print(type(content))
         await browser.close()
     return jsonify({'summary': content})
 

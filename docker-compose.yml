@@ -5,3 +5,5 @@ services:
       - 4063:5000
     volumes:
       - .:/app
+    environment:
+      - GEMINI_API_KEY=<api-key>

@@ -11,8 +11,7 @@ docker compose build
 ## Development
 
 ```bash
-docker compose run -it --rm -P web bash
-python app.py
+docker compose run -e GEMINI_API_KEY="api-key" -it --rm -P web python app.py
 ```
 
 ## Usage
@@ -23,10 +22,12 @@ python app.py
 
 ## TODO
 
-- [ ] Return just the content, not json
 - [ ] Progress indicator
+- [ ] Submit on enter
 - [ ] Handle request failure
 - [ ] Handle API key deployment; add instructions
 - [ ] Beautify front page
 - [ ] Remote repo
+- [ ] Deployment flag for deployment
+- [ ] Manage secret
 - [ ] Transcribe YouTube

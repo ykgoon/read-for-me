@@ -18,7 +18,7 @@ Take a step back and think step by step about how to achieve the best result pos
 
 ## OUTPUT INSTRUCTIONS
 
-1. You only output HTML. Do not wrap the content with backticks.
+1. You only output HTML. Do not wrap the content with backticks. Use ol and li-tag to display numbered-list.
 2. Do not give warnings or notes; only output the requested sections.
 3. You use numbered lists, not bullets.
 4. Do not repeat ideas, quotes, facts, or resources.

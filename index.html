@@ -5,13 +5,14 @@
     <title>Read For Me</title>
 </head>
 <body>
-    <input type="text" id="url" placeholder="Enter URL">
+    <input type="text" id="url" placeholder="Enter URL" style="width: 300px;">
     <button onclick="summarizeArticle()">Read</button>
     <div id="summary"></div>
 
     <script>
         async function summarizeArticle() {
             const url = document.getElementById('url').value;
+            document.getElementById('summary').innerHTML = '⏳ Loading...';
             const response = await fetch(`/summarize?url=${url}`);
             const data = await response.text();
             document.getElementById('summary').innerHTML = data;

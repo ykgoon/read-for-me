@@ -2,6 +2,6 @@ services:
   web:
     build: .
     ports:
-      - 5000:5000
+      - 4063:5000
     volumes:
       - .:/app

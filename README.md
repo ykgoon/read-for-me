@@ -4,15 +4,16 @@ Save time reading long form articles.
 
 ## Setup
 
-```bash
-docker compose build
+1. `docker compose build`
+2. Create a new file `.env`, add this
+
+```
+GEMINI_API_KEY=<your-api-key>
 ```
 
 ## Development
 
-```bash
-docker compose run -e GEMINI_API_KEY="api-key" -it --rm -P web python app.py
-```
+`docker compose up`
 
 ## Usage
 
@@ -22,7 +23,6 @@ docker compose run -e GEMINI_API_KEY="api-key" -it --rm -P web python app.py
 
 ## TODO
 
-- [ ] Handle API key deployment; add instructions
 - [ ] False debug flag for production mode
 - [ ] Manage secret
 - [ ] Transcribe YouTube

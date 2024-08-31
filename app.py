@@ -1,7 +1,7 @@
 import os
 
 import google.generativeai as genai
-from flask import Flask, jsonify, request, send_file
+from flask import Flask, request, send_file
 from flask_cors import CORS
 from playwright.async_api import async_playwright
 
@@ -41,7 +41,7 @@ async def summarize():
     )
     response = model.generate_content(content)
 
-    return jsonify({'summary': response.text})
+    return response.text
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

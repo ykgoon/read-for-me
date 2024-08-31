@@ -13,8 +13,8 @@
         async function summarizeArticle() {
             const url = document.getElementById('url').value;
             const response = await fetch(`http://localhost:5000/summarize?url=${url}`);
-            const data = await response.json();
-            document.getElementById('summary').innerHTML = data.summary;
+            const data = await response.text();
+            document.getElementById('summary').innerHTML = data;
         }
     </script>
 </body>

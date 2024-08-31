@@ -5,7 +5,7 @@
     <title>Read For Me</title>
 </head>
 <body>
-    <input type="text" id="url" placeholder="Enter URL" style="width: 300px;">
+    <input type="text" id="url" placeholder="Enter URL" style="width: 300px;" onkeyup="if (event.keyCode === 13) { summarizeArticle(); }">
     <button onclick="summarizeArticle()">Read</button>
     <div id="summary"></div>
 

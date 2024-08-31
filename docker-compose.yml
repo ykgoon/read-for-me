@@ -8,7 +8,6 @@ services:
     environment:
       - GEMINI_API_KEY=${GEMINI_API_KEY}
       - DEBUG=1
-    restart: always
     profiles:
       - dev
 

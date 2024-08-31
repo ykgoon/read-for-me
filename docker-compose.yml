@@ -7,3 +7,4 @@ services:
       - .:/app
     environment:
       - GEMINI_API_KEY=<api-key>
+    restart: always

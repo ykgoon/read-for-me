@@ -22,7 +22,6 @@ docker compose run -e GEMINI_API_KEY="api-key" -it --rm -P web python app.py
 
 ## TODO
 
-- [ ] Remote repo
 - [ ] Handle API key deployment; add instructions
 - [ ] False debug flag for production mode
 - [ ] Manage secret

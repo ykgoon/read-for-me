@@ -7,4 +7,20 @@ services:
       - .:/app
     environment:
       - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - DEBUG=1
     restart: always
+    profiles:
+      - dev
+
+  web-prod:
+    build: .
+    ports:
+      - 4063:5000
+    volumes:
+      - .:/app
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - DEBUG=0
+    restart: always
+    profiles:
+      - prod

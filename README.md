@@ -13,16 +13,9 @@ GEMINI_API_KEY=<your-api-key>
 
 ## Development
 
-`docker compose up`
+`docker compose --profile dev up`
 
 ## Usage
 
-1. Deploy server: `docker compose up -d`
+1. Deploy server: `docker compose --profile prod up -d`
 2. Open in browser: `http://<server>:4063`
-
-
-## TODO
-
-- [ ] False debug flag for production mode
-- [ ] Manage secret
-- [ ] Transcribe YouTube

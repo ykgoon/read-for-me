@@ -22,12 +22,8 @@ docker compose run -e GEMINI_API_KEY="api-key" -it --rm -P web python app.py
 
 ## TODO
 
-- [ ] Progress indicator
-- [ ] Submit on enter
-- [ ] Handle request failure
-- [ ] Handle API key deployment; add instructions
-- [ ] Beautify front page
 - [ ] Remote repo
-- [ ] Deployment flag for deployment
+- [ ] Handle API key deployment; add instructions
+- [ ] False debug flag for production mode
 - [ ] Manage secret
 - [ ] Transcribe YouTube

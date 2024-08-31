@@ -15,7 +15,8 @@
             document.getElementById('summary').innerHTML = '⏳ Reading...';
             const response = await fetch(`/summarize?url=${url}`);
             if (!response.ok) {
-                document.getElementById('summary').innerHTML = '❌ Error: Unable to summarize the article.';
+                const errorData = await response.text();
+                document.getElementById('summary').innerHTML = `❌ Error: ${errorData}`;
             } else {
                 const data = await response.text();
                 document.getElementById('summary').innerHTML = data;

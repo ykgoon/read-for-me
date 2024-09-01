@@ -2,6 +2,10 @@
 
 Save time reading long form articles.
 
+## Feature
+
+Given a URL of a long form essay/article/blog-post, extracts assertions and insights into easily digestable form.
+
 ## Setup
 
 1. `docker compose --profile dev build`

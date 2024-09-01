@@ -4,8 +4,6 @@ WORKDIR /app
 
 COPY requirements.txt .
 RUN pip install -r requirements.txt
-RUN playwright install firefox
-RUN playwright install-deps
 
 EXPOSE 5000
 

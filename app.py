@@ -1,9 +1,10 @@
 import os
+import requests
 
 import google.generativeai as genai
 from flask import Flask, request, send_file, Response
 from flask_cors import CORS
-from playwright.async_api import async_playwright
+from readability import Document
 
 app = Flask(__name__)
 CORS(app)
@@ -16,21 +17,10 @@ def index():
 @app.route('/summarize', methods=['GET'])
 async def summarize():
     url = request.args.get('url')
-    async with async_playwright() as p:
-        browser = await p.firefox.launch()
-        page = await browser.new_page()
-        await page.goto(url)
-        content = await page.evaluate('''
-        async () => {
-            const readabilityScript = document.createElement('script');
-            readabilityScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/readability/0.5.0/Readability.min.js';
-            document.head.appendChild(readabilityScript);
-            await new Promise(resolve => readabilityScript.onload = resolve);
-            const article = new Readability(document).parse();
-            return article.textContent;
-        }
-        ''')
-        await browser.close()
+
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0'}
+    html_content = requests.get(url, headers=headers).text
+    content = Document(html_content)
 
     genai.configure(api_key=os.environ["GEMINI_API_KEY"])
     with open("system_prompt.md") as f:
@@ -39,7 +29,7 @@ async def summarize():
         'gemini-1.5-flash',
         system_instruction=system_instruction,
     )
-    response = model.generate_content(content)
+    response = model.generate_content(content.summary())
 
     return Response(response.text, mimetype='text/plain')
 

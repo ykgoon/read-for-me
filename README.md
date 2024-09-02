@@ -6,7 +6,6 @@ Save time reading long form essay/article/blog-post.
 
 - Given a URL, extracts assertions and insights into quick digestable form.
 - Uses Google Gemini (get [API key](https://aistudio.google.com/app/apikey)) to summarize.
-- Produces result in plain text.
 
 ## Why
 

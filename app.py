@@ -2,8 +2,9 @@ import os
 import requests
 
 import google.generativeai as genai
-from flask import Flask, request, send_file, Response
+from flask import Flask, request, send_file
 from flask_cors import CORS
+from markdown import markdown
 from readability import Document
 
 app = Flask(__name__)
@@ -30,8 +31,7 @@ async def summarize():
         system_instruction=system_instruction,
     )
     response = model.generate_content(content.summary())
-
-    return Response(response.text, mimetype='text/plain')
+    return markdown(response.text)
 
 if __name__ == '__main__':
     app.run(

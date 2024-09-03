@@ -31,7 +31,11 @@ async def summarize():
         system_instruction=system_instruction,
     )
     response = model.generate_content(content.summary())
-    return markdown(response.text)
+    return f'''
+    <html><body><content>
+        {markdown(response.text)}
+    </content></body></html>
+    '''
 
 if __name__ == '__main__':
     app.run(

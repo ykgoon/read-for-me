@@ -45,9 +45,9 @@ async def summarize():
     )
     response = model.generate_content(content)
     return f'''
-    <html><body><content>
+    <html><body><article>
         {markdown(response.text)}
-    </content></body></html>
+    </article></body></html>
     '''
 
 if __name__ == '__main__':

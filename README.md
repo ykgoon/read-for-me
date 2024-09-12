@@ -25,7 +25,8 @@ The system prompt being used here is inspired by a pattern from [Fabric](https:/
 
 ## Development
 
-`docker compose --profile dev up`
+1. `docker compose --profile dev run -P --rm web bash`
+2. `python app.py`
 
 ## Production
 

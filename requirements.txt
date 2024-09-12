@@ -4,3 +4,4 @@ google-generativeai==0.7.2
 readability-lxml==0.8.1
 lxml-html-clean==0.2.2
 markdown==3.7
+youtube_transcript_api==0.6.2

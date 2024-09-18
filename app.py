@@ -18,7 +18,7 @@ def index():
 
 
 @app.route('/summarize', methods=['GET'])
-async def summarize():
+async def summarize(is_news=False):
     url = request.args.get('url')
 
     yt = YouTube()
@@ -36,9 +36,12 @@ async def summarize():
         html_content = requests.get(url, headers=headers).text
         content = Document(html_content).summary()
 
-    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-    with open("system_prompt.md") as f:
+    prompt_file = "prompts/article.md"
+    if is_news: prompt_file = "prompts/news.md"
+    with open(prompt_file) as f:
         system_instruction = f.read()
+
+    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
     model = genai.GenerativeModel(
         'gemini-1.5-flash',
         system_instruction=system_instruction,
@@ -49,6 +52,10 @@ async def summarize():
         {markdown(response.text)}
     </article></body></html>
     '''
+
+@app.route('/news', methods=['GET'])
+async def news():
+    return await summarize(is_news=True)
 
 if __name__ == '__main__':
     app.run(

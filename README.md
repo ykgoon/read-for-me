@@ -4,8 +4,10 @@ Save time reading long form essay/article/blog-post.
 
 ## Feature
 
-- Given a URL, extracts assertions and insights into quick digestable form.
-- Uses Google Gemini (get [API key](https://aistudio.google.com/app/apikey)) to summarize.
+- Given URL of an article, extracts assertions and insights into quick digestable form.
+- Summarize a news report into an Axios-style report.
+- Extract insights from a lecture or conversation in YouTube.
+- Uses Google Gemini to summarize.
 
 ## Why
 
@@ -21,6 +23,7 @@ The system prompt being used here is inspired by a pattern from [Fabric](https:/
 
 ## Setup
 
+1. Get [API key](https://aistudio.google.com/app/apikey)
 1. Create a new file `.env`, add `GEMINI_API_KEY=<your-api-key>`
 
 ## Development
@@ -30,6 +33,21 @@ The system prompt being used here is inspired by a pattern from [Fabric](https:/
 
 ## Production
 
-1. Deploy server: `docker compose --profile prod up -d`
-2. Open in browser: `http://<server>:4063`, or
-3. GET `http://<server>:4063/summarize?url=<url>`
+1. Deploy server: `docker compose --profile prod up -d**
+
+## How to use
+
+There are a few ways to use.
+
+Open `http://<server>:4063` in web browser for a simple UI. Or go direct...
+
+To extract insights for an article or a YouTube video.
+
+```
+http://<server>:4063/summarize?url=<url>
+```
+
+To summarize into an Axios-style news report
+```
+http://<server>:4063/news?url=<url>
+```

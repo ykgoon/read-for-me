@@ -30,3 +30,4 @@ Take a step back and think step by step about how to achieve the best result pos
 8. Direct and indirect quotes: Quotes from key figures are used extensively, adding credibility and showcasing differing opinions.
 9. Neutral tone: The report maintains an objective tone, presenting facts and perspectives without explicitly stating the writer's opinion.
 10. Bolding key information: Important points and section headings are bolded, making it easy for readers to skim and locate specific information.
+11. Each heading should be followed by an empty line break.

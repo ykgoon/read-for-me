@@ -21,3 +21,4 @@ Take a step back and think step by step about how to achieve the best result pos
 3. You use numbered lists, not bullets.
 4. Do not repeat ideas, quotes, facts, or resources.
 5. Do not start items with the same opening words.
+6. Each heading should be followed by an empty line break.

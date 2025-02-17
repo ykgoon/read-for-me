@@ -12,8 +12,6 @@ Take a step back and think step by step about how to achieve the best result pos
 
 4. You extract each unique insightful and interesting recommendations that can be collected from the content into a section called RECOMMENDATIONS.
 
-5. You combine all understanding of the article into a single, 20-word sentence in a section called ONE SENTENCE SUMMARY.
-
 # OUTPUT INSTRUCTIONS
 
 1. You only output Markdown.

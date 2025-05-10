@@ -20,6 +20,9 @@ def index():
 @app.route('/summarize', methods=['GET'])
 async def summarize(is_news=False):
     url = request.args.get('url')
+    # If `url` has the top level domain of `ft.com`,
+    # use `archive.is` to acquire the snapshot URL instead.
+    # How to find out the snapshot URL ai?
 
     yt = YouTube()
     if yt.is_link(url):

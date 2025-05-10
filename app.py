@@ -23,16 +23,17 @@ async def summarize(is_news=False):
     url = request.args.get('url')
     try:
         parsed_original_url = urlparse(url)
-        # Instead of just detecting just one domain,
-        # detect of all the following domains. ai!
-        # - ft.com
-        # - bloomberg.com
-        # - washingtonpost.com
-        # - nytimes.com
-        # - wired.com
-        if parsed_original_url.netloc.endswith('ft.com'):
+        # Domains that might require fetching via archive.is
+        archive_domains = [
+            "ft.com",
+            "bloomberg.com",
+            "washingtonpost.com",
+            "nytimes.com",
+            "wired.com"
+        ]
+        if any(parsed_original_url.netloc.endswith(domain) for domain in archive_domains):
             archive_submit_url = "https://archive.is/submit/"
-            app.logger.info(f"Attempting to fetch ft.com URL {url} via archive.is")
+            app.logger.info(f"Attempting to fetch URL {url} (domain: {parsed_original_url.netloc}) via archive.is")
 
             # Make a POST request to archive.is.
             # curl_cffi's post method follows redirects by default.

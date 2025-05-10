@@ -21,15 +21,19 @@ def index():
 @app.route('/summarize', methods=['GET'])
 async def summarize(is_news=False):
     url = request.args.get('url')
-    # If `url` has the top level domain of `ft.com`,
-    # use `archive.is` to acquire the snapshot URL instead.
-    # How to find out the snapshot URL ai?
     try:
         parsed_original_url = urlparse(url)
+        # Instead of just detecting just one domain,
+        # detect of all the following domains. ai!
+        # - ft.com
+        # - bloomberg.com
+        # - washingtonpost.com
+        # - nytimes.com
+        # - wired.com
         if parsed_original_url.netloc.endswith('ft.com'):
             archive_submit_url = "https://archive.is/submit/"
             app.logger.info(f"Attempting to fetch ft.com URL {url} via archive.is")
-            
+
             # Make a POST request to archive.is.
             # curl_cffi's post method follows redirects by default.
             response = requests.post(
@@ -39,12 +43,12 @@ async def summarize(is_news=False):
                 timeout=60  # Add a timeout
             )
             response.raise_for_status()  # Raise an exception for HTTP errors (4xx or 5xx)
-            
+
             # The final URL after redirects is the snapshot URL
             snapshot_url = response.url
             app.logger.info(f"Using archive.is snapshot URL: {snapshot_url}")
             url = snapshot_url  # Update the URL to use the snapshot
-            
+
     except requests.RequestsError as e:
         # Log the error and continue with the original URL as a fallback
         app.logger.error(f"Failed to get snapshot from archive.is for {url}: {e}. Proceeding with original URL.")

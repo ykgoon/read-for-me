@@ -33,7 +33,7 @@ The system prompt being used here is inspired by a pattern from [Fabric](https:/
 
 ## Production
 
-1. Deploy server: `docker compose --profile prod up -d**
+1. Deploy server: `docker compose --profile prod up -d`
 
 ## How to use
 

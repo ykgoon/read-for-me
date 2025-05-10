@@ -1,13 +1,13 @@
 import os
-import requests
 
 import google.generativeai as genai
+from curl_cffi import requests
 from flask import Flask, request, send_file
 from flask_cors import CORS
 from markdown import markdown
 from readability import Document
-from youtube import YouTube
 
+from youtube import YouTube
 
 app = Flask(__name__)
 CORS(app)
@@ -32,8 +32,7 @@ async def summarize(is_news=False):
             '''
 
     else:
-        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0'}
-        html_content = requests.get(url, headers=headers).text
+        html_content = requests.get(url, impersonate="chrome").text
         content = Document(html_content).summary()
 
     prompt_file = "prompts/article.md"

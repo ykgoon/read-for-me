@@ -6,6 +6,7 @@ from flask import Flask, request, send_file
 from flask_cors import CORS
 from markdown import markdown
 from readability import Document
+from urllib.parse import urlparse
 
 from youtube import YouTube
 
@@ -23,6 +24,33 @@ async def summarize(is_news=False):
     # If `url` has the top level domain of `ft.com`,
     # use `archive.is` to acquire the snapshot URL instead.
     # How to find out the snapshot URL ai?
+    try:
+        parsed_original_url = urlparse(url)
+        if parsed_original_url.netloc.endswith('ft.com'):
+            archive_submit_url = "https://archive.is/submit/"
+            app.logger.info(f"Attempting to fetch ft.com URL {url} via archive.is")
+            
+            # Make a POST request to archive.is.
+            # curl_cffi's post method follows redirects by default.
+            response = requests.post(
+                archive_submit_url,
+                data={"url": url},
+                impersonate="chrome",  # Mimic a browser
+                timeout=60  # Add a timeout
+            )
+            response.raise_for_status()  # Raise an exception for HTTP errors (4xx or 5xx)
+            
+            # The final URL after redirects is the snapshot URL
+            snapshot_url = response.url
+            app.logger.info(f"Using archive.is snapshot URL: {snapshot_url}")
+            url = snapshot_url  # Update the URL to use the snapshot
+            
+    except requests.RequestsError as e:
+        # Log the error and continue with the original URL as a fallback
+        app.logger.error(f"Failed to get snapshot from archive.is for {url}: {e}. Proceeding with original URL.")
+    except Exception as e:
+        # Catch any other unexpected errors (e.g., during URL parsing)
+        app.logger.error(f"An unexpected error occurred while trying to process {url} with archive.is: {e}. Proceeding with original URL.")
 
     yt = YouTube()
     if yt.is_link(url):

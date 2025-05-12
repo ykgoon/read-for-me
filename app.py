@@ -23,13 +23,16 @@ async def summarize(is_news=False):
     url = request.args.get('url')
     try:
         parsed_original_url = urlparse(url)
-        # Domains that might require fetching via archive.is
         archive_domains = [
             "ft.com",
             "bloomberg.com",
             "washingtonpost.com",
             "nytimes.com",
-            "wired.com"
+            "wired.com",
+            "404media.co",
+            "politico.com",
+            "economist.com",
+            "thediplomat.com",
         ]
         if any(parsed_original_url.netloc.endswith(domain) for domain in archive_domains):
             archive_submit_url = "https://archive.is/submit/"

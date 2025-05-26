@@ -81,7 +81,7 @@ async def summarize(is_news=False):
 
     genai.configure(api_key=os.environ["GEMINI_API_KEY"])
     model = genai.GenerativeModel(
-        'gemini-2.0-flash-lite',
+        'gemini-2.5-flash-preview-05-20',
         system_instruction=system_instruction,
     )
     response = model.generate_content(content)

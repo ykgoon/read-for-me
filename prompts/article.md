@@ -20,3 +20,4 @@ Take a step back and think step by step about how to achieve the best result pos
 4. Do not repeat ideas, quotes, facts, or resources.
 5. Do not start items with the same opening words.
 6. Each heading should be followed by an empty line break.
+7. Do not include wrapping backticks in your output.

@@ -7,7 +7,7 @@ Save time reading long form essay/article/blog-post.
 - Given URL of an article, extracts assertions and insights into quick digestable form.
 - Summarize a news report into an Axios-style report.
 - Extract insights from a lecture or conversation in YouTube.
-- Uses Google Gemini to summarize.
+- Uses OpenAI-compatible API for summarization.
 
 ## Why
 
@@ -17,14 +17,20 @@ Sometimes (just sometimes) the essay you're reading is better off being distille
 
 This is a tool to extract these points so you can decide whether to dive into the original material or not.
 
-Most LLMs can now do this competently enough. This tool uses Google Gemini 1.5 Flash to do it, but ideologically it's agnostic about which LLM to use.
+Most LLMs can now do this competently enough. This tool uses an OpenAI-compatible API to do it, but ideologically it's agnostic about which LLM to use.
 
 The system prompt being used here is inspired by a pattern from [Fabric](https://github.com/danielmiessler/fabric/blob/main/patterns/summarize/dmiessler/summarize/system.md), which is responsible for producing the structure of the outcome.
 
 ## Setup
 
-1. Get [API key](https://aistudio.google.com/app/apikey)
-1. Create a new file `.env`, add `GEMINI_API_KEY=<your-api-key>`
+1. Get an API key for your OpenAI-compatible service
+1. Create a new file `.env`, add:
+```
+OPENAI_API_KEY=<your-api-key>
+# Optional:
+# OPENAI_API_BASE=https://your-custom-api-endpoint
+# OPENAI_MODEL=your-model-name
+```
 
 ## Development
 

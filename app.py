@@ -1,6 +1,5 @@
 import os
 
-import google.generativeai as genai
 from curl_cffi import requests
 from flask import Flask, request, send_file
 from flask_cors import CORS
@@ -81,15 +80,41 @@ async def summarize(is_news=False):
     with open(prompt_file) as f:
         system_instruction = f.read()
 
-    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-    model = genai.GenerativeModel(
-        'gemini-2.5-flash-preview-05-20',
-        system_instruction=system_instruction,
-    )
-    response = model.generate_content(content)
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        return "OPENAI_API_KEY environment variable is not set", 500
+
+    api_base = os.environ.get("OPENAI_API_BASE", "https://api.openai.com/v1")
+    model_name = os.environ.get("OPENAI_MODEL", "gpt-3.5-turbo")
+
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "model": model_name,
+        "messages": [
+            {"role": "system", "content": system_instruction},
+            {"role": "user", "content": content}
+        ]
+    }
+    try:
+        response = requests.post(
+            f"{api_base}/chat/completions",
+            json=payload,
+            headers=headers,
+            timeout=60
+        )
+        response.raise_for_status()
+        response_json = response.json()
+        text_response = response_json['choices'][0]['message']['content']
+    except Exception as e:
+        app.logger.error(f"Error calling OpenAI API: {e}")
+        return "An error occurred while generating the summary.", 500
+
     return f'''
     <html><body><article>
-        {markdown(response.text)}
+        {markdown(text_response)}
     </article></body></html>
     '''
 

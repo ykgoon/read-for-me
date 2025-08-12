@@ -6,7 +6,9 @@ services:
     volumes:
       - .:/app
     environment:
-      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_API_BASE=${OPENAI_API_BASE}
+      - OPENAI_MODEL=${OPENAI_MODEL}
       - DEBUG=1
     profiles:
       - dev
@@ -18,7 +20,9 @@ services:
     volumes:
       - .:/app
     environment:
-      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_API_BASE=${OPENAI_API_BASE}
+      - OPENAI_MODEL=${OPENAI_MODEL}
       - DEBUG=0
     restart: always
     profiles:

@@ -1,3 +1,4 @@
+import json
 import os
 
 from curl_cffi import requests
@@ -45,7 +46,7 @@ async def summarize(is_news=False):
                 archive_submit_url,
                 data={"url": url},
                 impersonate="chrome",  # Mimic a browser
-                timeout=60  # Add a timeout
+                timeout=120  # Increased timeout to 120 seconds
             )
             response.raise_for_status()  # Raise an exception for HTTP errors (4xx or 5xx)
 
@@ -103,14 +104,23 @@ async def summarize(is_news=False):
             f"{api_base}/chat/completions",
             json=payload,
             headers=headers,
-            timeout=60
+            timeout=60,
+            stream=True,
         )
         response.raise_for_status()
-        response_json = response.json()
+
+        # Collect the streamed response
+        response_data = ""
+        for chunk in response.iter_lines():
+            if chunk:
+                response_data += chunk.decode('utf-8')
+
+        # Parse the complete response
+        response_json = json.loads(response_data)
         text_response = response_json['choices'][0]['message']['content']
     except Exception as e:
         app.logger.error(f"Error calling OpenAI API: {e}")
-        return "An error occurred while generating the summary.", 500
+        return f"An error occurred while generating the summary. {e}", 500
 
     return f'''
     <html><body><article>

@@ -123,7 +123,7 @@ async def summarize(is_news=False):
         return f"An error occurred while generating the summary. {e}", 500
 
     return f'''
-    <html><body><article>
+    <html><body><article style="font-size: larger;">
         {markdown(text_response)}
     </article></body></html>
     '''

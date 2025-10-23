@@ -21,3 +21,4 @@ Take a step back and think step by step about how to achieve the best result pos
 5. Do not start items with the same opening words.
 6. Each heading should be followed by an empty line break.
 7. Do not include wrapping backticks in your output.
+8. Heading must be formatted like "# Heading", never "**Heading**"

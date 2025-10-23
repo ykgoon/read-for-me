@@ -14,8 +14,7 @@ from youtube import YouTube
 app = Flask(__name__)
 CORS(app)
 
-# Set logging level to INFO
-app.logger.setLevel(logging.INFO)
+app.logger.setLevel(logging.ERROR)
 
 @app.route('/')
 def index():
@@ -93,9 +92,13 @@ async def summarize(is_news=False):
         app.logger.error(f"Error calling OpenAI API: {e}")
         return f"An error occurred while generating the summary. {e}", 500
 
+    html_article = markdown(text_response)
+    app.logger.debug(f"Markdown: {text_response}")
+    app.logger.debug(f"HTML: {html_article}")
+
     return f'''
-    <html><body><article style="font-size: larger;">
-        {markdown(text_response)}
+    <html><body><article>
+        {html_article}
     </article></body></html>
     '''
 

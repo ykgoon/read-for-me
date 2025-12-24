@@ -13,8 +13,8 @@ class YouTube(object):
     def get_transcriptions(self, url:str):
         vid = self._get_video_id(url)
         try:
-            transcriptions = YouTubeTranscriptApi.get_transcript(vid)
-            return '\n'.join([trs['text'] for trs in transcriptions])
+            transcriptions = YouTubeTranscriptApi().fetch(vid)
+            return '\n'.join([trs.text for trs in transcriptions])
         except:
             return False
 
